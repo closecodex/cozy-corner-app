@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="bn-wrap">
+  <header class="bn-hero">
+    <div class="bn-hero-text">
+      <div class="bn-kicker">Book Nook</div>
+      <h2 class="bn-title">Book Nook 📚</h2>
+      <p class="bn-subtitle">Pick a category, add an optional keyword, and I’ll suggest real books from the local shelf.</p>
+    </div>
+    <div class="bn-hero-art" aria-hidden="true">
+      <div class="bn-book bn-book-1"></div>
+      <div class="bn-book bn-book-2"></div>
+      <div class="bn-book bn-book-3"></div>
+    </div>
+  </header>
+
+  <section class="bn-card">
+    <form method="post" class="bn-form" novalidate>
+      <label class="bn-label">
+        Genre <span class="bn-required">*</span>
+        <select name="genre" class="bn-input" required>
+          <option value="" selected disabled></option>
+          {% for g in genres %}
+            <option value="{{ g }}" {% if selected_genre == g %}selected{% endif %}>{{ g }}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <label class="bn-label">
+        Keywords (optional)
+        <input name="keywords" class="bn-input" placeholder="e.g. friendship, magic, war, dogs" value="{{ keywords_value or '' }}" />
+      </label>
+
+      <button class="bn-button" type="submit">Suggest books</button>
+    </form>
+
+    {% if error_message %}
+      <div class="bn-alert" role="status">{{ error_message }}</div>
+    {% endif %}
+  </section>
+
+  {% if selected_genre and suggestions and suggestions|length > 0 %}
+    <section class="bn-results" aria-label="Book suggestions">
+      {% for b in suggestions %}
+        <article class="bn-result">
+          <h3 class="bn-book-title">{{ b.title }}</h3>
+          <p class="bn-book-meta"><strong>Author:</strong> {{ b.author }}</p>
+          <p class="bn-book-desc">{{ b.description }}</p>
+        </article>
+      {% endfor %}
+    </section>
+  {% endif %}
+</section>
+{% endblock %}
+

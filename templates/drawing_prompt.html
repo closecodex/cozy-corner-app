@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<!-- Include the specific stylesheet for Drawing Prompt -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dp-style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dp-wrap">
+  <section class="dp-hero">
+    <!-- Decorative artsy elements -->
+    <div class="dp-sparkle dp-s1">✏️</div>
+    <div class="dp-sparkle dp-s2">🎨</div>
+    <div class="dp-sparkle dp-s3">✨</div>
+    
+    <h2 class="dp-title">Daily Drawing Prompt</h2>
+    <p class="dp-subtitle">A gentle nudge for your sketchbook. Cozy, inspiring, and a tiny bit silly.</p>
+
+    <!-- The Prompt Card -->
+    <div class="dp-card">
+      <div class="dp-prompt-text">{{ prompt }}</div>
+    </div>
+    
+    <!-- Action Form -->
+    <form class="dp-form" method="post">
+      <button class="dp-button" type="submit">
+        <span>✨</span> New prompt
+      </button>
+    </form>
+
+    <!-- Recent Prompts -->
+    <div class="dp-recent-section" id="recent-prompts-section" style="display: none;">
+      <h3 class="dp-recent-title"><span>📒</span> Recent prompts</h3>
+      <p style="font-size: 14px; margin: -15px 0 15px 0; color: rgba(43,43,43,0.6);">Your prompts from this session</p>
+      <ul class="dp-list" id="recent-prompts-list">
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const currentPromptText = {{ prompt|tojson }};
+    const storageKey = "dp_recent_prompts";
+    
+    // Retrieve past prompts from sessionStorage
+    let pastPrompts = JSON.parse(sessionStorage.getItem(storageKey) || "[]");
+    
+    // Render past prompts if any exist
+    const section = document.getElementById("recent-prompts-section");
+    const listEl = document.getElementById("recent-prompts-list");
+    
+    if (pastPrompts.length > 0) {
+      section.style.display = "block";
+      pastPrompts.forEach(p => {
+        const li = document.createElement("li");
+        li.className = "dp-list-item";
+        li.textContent = p;
+        listEl.appendChild(li);
+      });
+    }
+    
+    // Save current prompt to history (at the front)
+    if (pastPrompts.length === 0 || pastPrompts[0] !== currentPromptText) {
+      pastPrompts.unshift(currentPromptText);
+      // Keep max 7 prompts
+      if (pastPrompts.length > 7) {
+        pastPrompts.length = 7;
+      }
+      sessionStorage.setItem(storageKey, JSON.stringify(pastPrompts));
+    }
+  });
+</script>
+{% endblock %}

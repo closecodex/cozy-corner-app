@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="dm-wrap">
+  <header class="dm-hero">
+    <div class="dm-hero-text">
+      <div class="dm-kicker">Cozy Corner Mini‑Quiz</div>
+      <h2 class="dm-title">Dog Personality Matcher 🐶</h2>
+      <p class="dm-subtitle">
+        Answer every question to discover the dog breed that matches your vibe.
+        It’s science. (Cozy science.)
+      </p>
+
+      <div class="dm-badges" aria-label="Quiz details">
+        <span class="dm-badge">10 questions</span>
+        <span class="dm-badge">30 seconds</span>
+        <span class="dm-badge">0% judgment</span>
+      </div>
+    </div>
+
+    <div class="dm-hero-art" aria-hidden="true">
+      <img class="dm-art dm-art-1" src="{{ url_for('static', filename='images/dogs/samoyed.svg') }}" alt="">
+      <img class="dm-art dm-art-2" src="{{ url_for('static', filename='images/dogs/corgi.svg') }}" alt="">
+      <img class="dm-art dm-art-3" src="{{ url_for('static', filename='images/dogs/golden_retriever.svg') }}" alt="">
+    </div>
+  </header>
+
+  {% if error_message %}
+    <div class="cc-alert dm-alert">{{ error_message }}</div>
+  {% endif %}
+
+  <section class="dm-card">
+    <form method="post" class="dm-form" id="dog-quiz" novalidate>
+      <ol class="dm-question-list">
+        {% for q in questions %}
+          <li class="dm-question" data-question>
+            <fieldset class="dm-fieldset">
+              <legend class="dm-legend">
+                <span class="dm-qnum">{{ loop.index }}</span>
+                <span class="dm-qtext">{{ q.text }}</span>
+              </legend>
+
+              <div class="dm-options" role="radiogroup" aria-label="{{ q.text }}">
+                {% for value, label in q.options %}
+                  <label class="dm-option">
+                    <input
+                      type="radio"
+                      name="{{ q.id }}"
+                      value="{{ value }}"
+                      {% if loop.first %}required{% endif %}
+                    >
+                    <span class="dm-pill">{{ label }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+            </fieldset>
+          </li>
+        {% endfor %}
+      </ol>
+
+      <div class="dm-submit-row">
+        <button class="dm-button" type="submit">Reveal my dog match</button>
+        <div class="dm-help" id="dm-help">Tip: you’ll need an answer for every question.</div>
+      </div>
+    </form>
+  </section>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  (function () {
+    const form = document.getElementById("dog-quiz");
+    if (!form) return;
+
+    function markInvalidGroups() {
+      form.classList.add("dm-submitted");
+      const firstInvalid = form.querySelector("input[required]:invalid");
+      if (firstInvalid) {
+        const question = firstInvalid.closest("[data-question]");
+        if (question) question.scrollIntoView({ behavior: "smooth", block: "center" });
+        firstInvalid.focus({ preventScroll: true });
+      }
+    }
+
+    form.addEventListener("submit", function (e) {
+      // Allow browser validity checking but handle the visuals ourselves
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        markInvalidGroups();
+        const help = document.getElementById("dm-help");
+        if (help) help.textContent = "Almost! Please answer the highlighted question(s).";
+      }
+    });
+  })();
+</script>
+{% endblock %}
+

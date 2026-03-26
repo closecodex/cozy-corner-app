@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="cc-card cc-page">
+  <h2>Your dog match is…</h2>
+
+  <div class="cc-split">
+    <div>
+      <h3 class="cc-big">{{ result.name }} 🐾</h3>
+      <p class="cc-lead">{{ result.description }}</p>
+      <div class="cc-row">
+        <a class="cc-button" href="{{ url_for('dog_matcher') }}">Try again</a>
+      </div>
+    </div>
+
+    <div class="cc-image-card">
+      <img
+        src="{{ url_for('static', filename='images/' ~ result.image_filename) }}"
+        alt="{{ result.name }}"
+        onerror="this.src='{{ url_for('static', filename='images/cozy_dog_fallback.svg') }}'"
+      />
+    </div>
+  </div>
+</section>
+{% endblock %}
+

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<!-- specific styling for home -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="home-hero">
+  <h2 class="home-title">Welcome to your cozy little corner ☕</h2>
+  <p class="home-subtitle">
+    This is a tiny playground of gentle, silly mini-apps — made for
+    book lovers, pet enthusiasts, and anyone who needs a soft, low‑pressure break.
+  </p>
+  <p class="home-subtitle">
+    Pick a tab above to match with a dog, collect random cat wisdom, discover book ideas,
+    shuffle a simple puzzle, or spark your next drawing. ✨
+  </p>
+</section>
+
+<section class="home-grid">
+  <article class="home-card">
+    <h3>Dog Personality Matcher 🐶</h3>
+    <p>Answer a few tiny questions and meet your doggo soulmate with a funny little description.</p>
+    <a class="cc-button" href="{{ url_for('dog_matcher') }}">Meet your pup</a>
+  </article>
+
+  <article class="home-card">
+    <h3>Cat Corner 🐱</h3>
+    <p>Endless cat facts and cozy kitty pictures. Genuinely educational? Questionable. Delightful? Yes.</p>
+    <a class="cc-button" href="{{ url_for('cats') }}">Visit Cat Corner</a>
+  </article>
+
+  <article class="home-card">
+    <h3>Random Book Generator 📚</h3>
+    <p>Tell it a vibe or genre and get a little stack of book suggestions to explore.</p>
+    <a class="cc-button" href="{{ url_for('books') }}">Open the book nook</a>
+  </article>
+
+  <article class="home-card">
+    <h3>Image Puzzle 🧩</h3>
+    <p>A simple, shufflable image puzzle. No timers, no stress — just little tiles to tap around.</p>
+    <a class="cc-button" href="{{ url_for('puzzle') }}">Play the puzzle</a>
+  </article>
+
+  <article class="home-card">
+    <h3>Drawing Prompts 🎨</h3>
+    <p>Get a cozy creative prompt with a fun constraint to nudge your sketchbook awake.</p>
+    <a class="cc-button" href="{{ url_for('drawing_prompt') }}">Spark a prompt</a>
+  </article>
+
+  <article class="home-card" style="border: 2px dashed #ff0055; background: #fffcf2;">
+    <h3 style="color: #ff0055;">Bonus Games 🎉</h3>
+    <p>Two classic pop-art minigames! Relax with some retro Snake or play Tic-Tac-Toe.</p>
+    <a class="cc-button" href="{{ url_for('bonus') }}" style="background: linear-gradient(135deg, #ff0055, #ff8fb1); color: white;">Play Bonus Games</a>
+  </article>
+</section>
+{% endblock %}
+

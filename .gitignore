@@ -1,0 +1,20 @@
+# Environment
+venv/
+.env
+
+# Code
+__pycache__/
+*.py[cod]
+
+# Database & Instance Data
+instance/
+*.sqlite3
+*.db
+
+# Testing
+.pytest_cache/
+
+# Temporary / OS
+.DS_Store
+tmp_add_books.py
+insert_logic.py

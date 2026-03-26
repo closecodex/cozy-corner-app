@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cats.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="cats-wrap">
+  <section class="cats-hero">
+    <h2 class="cats-title"><span>Cat</span> <span>Corner</span> 🐱</h2>
+    <p class="cats-subtitle">Tap the button for a new cat fact + a fresh cat photo. (The cats are doing their best to be educational. We think.)</p>
+
+    <div class="cats-content">
+      <div>
+        <div class="cats-fact-box" id="cat-fact">Click “Show me another cat 🐾” to begin your feline journey.</div>
+        <div class="cc-alert cc-hidden" id="cat-error"></div>
+        <div class="cats-btn-wrap">
+          <button class="cats-btn" id="cat-btn" type="button">Show me another cat 🐾</button>
+        </div>
+        <div class="cc-loading cc-hidden" id="cat-loading" style="text-align: center; margin-top: 14px; font-weight: bold; color: #ff8fb1;">Fetching whiskers...</div>
+      </div>
+
+      <div class="cats-image-container">
+        <img id="cat-img" src="{{ url_for('static', filename='images/cozy_cat_fallback.svg') }}" alt="A cozy cat" />
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/cats.js') }}"></script>
+{% endblock %}
+

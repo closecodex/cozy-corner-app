@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<!-- specific styling for bonus pop-art section -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bonus.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="bonus-wrap">
+  <h2 class="bonus-title">Bonus Games 🎉</h2>
+  <div style="text-align: center;">
+    <p class="bonus-subtitle">Pop Art Nostalgia mode: Engage!</p>
+  </div>
+
+  <div class="bonus-tabs">
+    <button class="bonus-tab active" id="tab-snake">Snake 🐍</button>
+    <button class="bonus-tab" id="tab-ttt">Tic-Tac-Toe ❌⭕</button>
+  </div>
+
+  <!-- Snake Area -->
+  <div class="bonus-area" id="area-snake">
+    <div class="comic-box snake-box">
+      <div class="score-board">Score: <span id="snake-score">0</span></div>
+      <canvas id="snake-canvas" width="400" height="400"></canvas>
+      
+      <div id="snake-gameover" class="hidden">
+        <h3>GAME OVER</h3>
+        <button id="snake-start-btn" class="pop-btn">PLAY AGAIN</button>
+      </div>
+      
+      <div id="snake-start-screen">
+        <button id="snake-initial-btn" class="pop-btn">START SNAKE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tic-Tac-Toe Area -->
+  <div class="bonus-area hidden" id="area-ttt">
+    <div class="comic-box ttt-box">
+      <div class="ttt-header">
+        <h3 id="ttt-status">Player X's Turn</h3>
+      </div>
+      <div class="ttt-grid" id="ttt-board">
+        <button class="ttt-cell" data-index="0"></button>
+        <button class="ttt-cell" data-index="1"></button>
+        <button class="ttt-cell" data-index="2"></button>
+        <button class="ttt-cell" data-index="3"></button>
+        <button class="ttt-cell" data-index="4"></button>
+        <button class="ttt-cell" data-index="5"></button>
+        <button class="ttt-cell" data-index="6"></button>
+        <button class="ttt-cell" data-index="7"></button>
+        <button class="ttt-cell" data-index="8"></button>
+      </div>
+      <button id="ttt-reset-btn" class="pop-btn">RESET GAME</button>
+    </div>
+  </div>
+
+  <audio id="ttt-fanfare" src="{{ url_for('static', filename='sounds/fanfare.wav') }}" preload="auto"></audio>
+</div>
+
+<script>
+  // Simple tab switching logic
+  document.getElementById('tab-snake').addEventListener('click', () => {
+    document.getElementById('area-snake').classList.remove('hidden');
+    document.getElementById('area-ttt').classList.add('hidden');
+    document.getElementById('tab-snake').classList.add('active');
+    document.getElementById('tab-ttt').classList.remove('active');
+  });
+  
+  document.getElementById('tab-ttt').addEventListener('click', () => {
+    document.getElementById('area-ttt').classList.remove('hidden');
+    document.getElementById('area-snake').classList.add('hidden');
+    document.getElementById('tab-ttt').classList.add('active');
+    document.getElementById('tab-snake').classList.remove('active');
+  });
+</script>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/snake.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tictactoe.js') }}"></script>
+{% endblock %}

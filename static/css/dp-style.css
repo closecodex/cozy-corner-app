@@ -1,0 +1,183 @@
+/* Daily Drawing Prompt */
+.dp-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px;
+}
+
+.dp-hero {
+  border-radius: 28px;
+  border: 1px solid rgba(43,43,43,0.08);
+  /* Light, warm paper background */
+  background: 
+    linear-gradient(135deg, #fffcf9 0%, #fef3e9 100%);
+  box-shadow: 0 20px 40px rgba(43,43,43,0.06), inset 0 2px 0 rgba(255,255,255,0.9);
+  padding: 50px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Notebook dots texture */
+.dp-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: radial-gradient(rgba(43,43,43,0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.dp-title {
+  font-family: "Fredoka", system-ui, sans-serif;
+  font-size: 38px;
+  margin: 0 0 12px;
+  color: #2b2b2b;
+  position: relative;
+}
+
+.dp-subtitle {
+  color: rgba(43,43,43,0.65);
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  margin: 0 auto 36px;
+  max-width: 400px;
+  line-height: 1.5;
+  position: relative;
+}
+
+/* The card for the drawing prompt */
+.dp-card {
+  background: #ffffff;
+  /* Looks like a cut-out or sketch area */
+  border: 2px dashed rgba(43,43,43,0.18);
+  border-radius: 24px;
+  padding: 48px 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 12px 24px rgba(43,43,43,0.04);
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.dp-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,143,177,0.5);
+}
+
+/* Prompt Focus */
+.dp-prompt-text {
+  font-family: "Fredoka", system-ui, sans-serif;
+  font-size: 32px;
+  line-height: 1.4;
+  color: #1d1b22;
+  font-weight: 500;
+  margin: 0;
+}
+
+.dp-form {
+  position: relative;
+  z-index: 2;
+}
+
+.dp-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 16px 32px;
+  font-family: "Quicksand", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  /* Friendly gradient button */
+  background: linear-gradient(135deg, #ff8fb1, #ffc4d6);
+  color: #1d1b22;
+  box-shadow: 0 12px 28px rgba(255,143,177,0.35);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.dp-button:hover {
+  transform: translateY(-3px) scale(1.02);
+  filter: brightness(1.04);
+  box-shadow: 0 16px 32px rgba(255,143,177,0.45);
+}
+
+.dp-button:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 8px 16px rgba(255,143,177,0.25);
+}
+
+/* Recent prompts section */
+.dp-recent-section {
+  margin-top: 50px;
+  padding-top: 36px;
+  border-top: 2px dotted rgba(43,43,43,0.12);
+  text-align: left;
+  position: relative;
+}
+
+.dp-recent-title {
+  font-family: "Fredoka", system-ui, sans-serif;
+  font-size: 22px;
+  margin: 0 0 20px;
+  color: #2b2b2b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.dp-list-item {
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 16px;
+  border: 1px solid rgba(43,43,43,0.06);
+  color: rgba(43,43,43,0.85);
+  font-size: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: background 0.2s ease;
+}
+
+.dp-list-item:hover {
+  background: rgba(255,255,255,1);
+}
+
+.dp-list-item::before {
+  content: "✨";
+  font-size: 15px;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+/* Floating decoratives */
+.dp-sparkle {
+  position: absolute;
+  font-size: 32px;
+  opacity: 0.6;
+  animation: float-soft 5s ease-in-out infinite;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dp-s1 { top: 30px; left: 30px; transform: rotate(-15deg); }
+.dp-s2 { bottom: 60px; right: 30px; animation-delay: 1.5s; font-size: 40px; transform: rotate(10deg); }
+.dp-s3 { top: 50px; right: 40px; font-size: 24px; animation-delay: 0.5s; opacity: 0.5; }
+
+@media (max-width: 600px) {
+  .dp-hero { padding: 40px 20px; }
+  .dp-card { padding: 36px 16px; }
+  .dp-title { font-size: 32px; }
+  .dp-prompt-text { font-size: 26px; }
+}

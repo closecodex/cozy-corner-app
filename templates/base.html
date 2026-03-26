@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cozy Corner App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <header class="cc-header">
+    <div class="cc-header-inner">
+      <div class="cc-title">
+        <span class="cc-logo">☕</span>
+        <div>
+          <h1>Cozy Corner App</h1>
+          <p class="cc-tagline">Little playful things for your brain to sip on.</p>
+        </div>
+      </div>
+      <nav class="cc-nav">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('dog_matcher') }}">Dog Matcher 🐶</a>
+        <a href="{{ url_for('cats') }}">Cat Corner 🐱</a>
+        <a href="{{ url_for('books') }}">Book Nook 📚</a>
+        <a href="{{ url_for('puzzle') }}">Puzzle 🧩</a>
+        <a href="{{ url_for('drawing_prompt') }}">Drawing Prompts 🎨</a>
+        <a href="{{ url_for('bonus') }}" style="color: #ff0055; font-weight: bold;">Bonus 🎉</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="cc-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="cc-footer">
+    <p>Made in a cozy corner with Python &amp; Flask. | <a href="{{ url_for('about') }}" style="color: #ff8fb1; font-weight: bold; text-decoration: none;">About Me</a> | <a href="{{ url_for('bonus') }}" style="color: #7bd3ea; font-weight: bold; text-decoration: none;">Bonus Games</a></p>
+  </footer>
+
+  {% block extra_scripts %}{% endblock %}
+
+  <audio id="global-tap-sound" src="{{ url_for('static', filename='sounds/tap.wav') }}" preload="auto"></audio>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const tapSound = document.getElementById("global-tap-sound");
+      if (tapSound) {
+        tapSound.volume = 0.4;
+      }
+      
+      let lastTapTime = 0;
+      
+      document.body.addEventListener("click", (e) => {
+        // Target all interactive elements globally
+        const target = e.target.closest("button, a, input[type='submit'], input[type='button'], input[type='radio'], label, .cc-button, .puzzle-btn, .cats-btn, .upload-btn-puzzle, .interest-badge, .dm-option");
+        
+        // Ensure tiles are excluded
+        const isTile = e.target.closest(".cc-tile");
+        
+        if (target && !isTile) {
+          // Debounce slightly to avoid double-plays from label -> input synthetic event pairs
+          const now = Date.now();
+          if (now - lastTapTime < 50) return;
+          lastTapTime = now;
+          
+          if (tapSound) {
+            tapSound.currentTime = 0;
+            
+            // It is strictly necessary to prevent default for navigations and form submits.
+            // If we don't, the browser immediately deletes the webpage and kills the audio track
+            // before a single millisecond is played.
+            const hrefAttr = target.getAttribute("href") || "";
+            const isLink = target.tagName === "A" && target.href && !hrefAttr.startsWith("javascript:") && !hrefAttr.startsWith("#") && (!target.target || target.target === "_self");
+            
+            const isSubmit = target.type === "submit" || (target.tagName === "BUTTON" && target.type !== "button");
+            const form = isSubmit ? target.closest("form") : null;
+            
+            // Intercept form submissions securely
+            if (form) {
+              if (form.checkValidity && !form.checkValidity()) {
+                tapSound.play().catch(err => {});
+                return; // Let native validation show popup natively
+              }
+              
+              e.preventDefault();
+              tapSound.play().catch(err => {});
+              
+              setTimeout(() => {
+                form.submit();
+              }, 120);
+              return;
+            }
+            
+            // Intercept standard link navigations securely
+            if (isLink) {
+              e.preventDefault();
+              tapSound.play().catch(err => {});
+              
+              setTimeout(() => {
+                window.location.href = target.href;
+              }, 120);
+              return;
+            }
+            
+            // Play instantly for in-page updates that do not navigate (Puzzle Shuffle, Upload, etc)
+            tapSound.play().catch(err => { /* audio play blocked */ });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+

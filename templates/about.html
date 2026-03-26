@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<!-- specific styling for about me -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="about-wrap">
+  <div class="about-card">
+    <div class="about-header">
+      <div class="about-avatar">
+        ✨👩🏽‍💻✨
+      </div>
+      <h2 class="about-title">About Me</h2>
+    </div>
+    
+    <div class="about-body">
+      <p>
+        Hi! My name is <strong>Maria</strong>. I'm a creative person who loves animals.
+      </p>
+      <p>
+        I enjoy hobbies like solving puzzles, reading, and drawing. I also program in Python and created this mini-site inspired by my interests.
+      </p>
+      <p class="about-highlight">
+        I hope you enjoy exploring it as much as I enjoyed making it! 💖
+      </p>
+    </div>
+    
+    <div class="about-interests">
+      <span class="interest-badge">🧩 Puzzles</span>
+      <span class="interest-badge">📚 Reading</span>
+      <span class="interest-badge">🎨 Drawing</span>
+      <span class="interest-badge">🐾 Animals</span>
+      <span class="interest-badge">💻 Python</span>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<!-- Include specific puzzle stylesheet -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/puzzle.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="cc-card cc-page puzzle-layout">
+  <div class="puzzle-header">
+    <h2>Puzzle Time 🧩</h2>
+    <p class="cc-muted">
+      A cheerful click‑swap puzzle. Upload your own picture or play with the default! Click two tiles to swap them. No timers. No pressure. Just tiny chaos.
+    </p>
+  </div>
+
+  <div class="puzzle-controls">
+    <div class="control-group">
+      <label for="grid-size" style="display:inline; font-family: 'Fredoka', sans-serif; font-size: 18px; font-weight: 500; color: #2b2b2b;">Grid Size:</label>
+      <select id="grid-size" class="puzzle-select">
+        <option value="12">12 Pieces (Easy)</option>
+        <option value="20">20 Pieces (Medium)</option>
+        <option value="30">30 Pieces (Hard)</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="image-upload" class="upload-btn-puzzle">
+        📷 Upload Image
+      </label>
+      <input type="file" id="image-upload" accept="image/*" style="display: none;" />
+    </div>
+    <div class="control-group">
+      <button class="puzzle-btn" id="shuffle" type="button">🔀 Shuffle</button>
+    </div>
+  </div>
+
+  <div class="cc-puzzle-wrap centered-puzzle">
+    <div
+      id="puzzle"
+      class="cc-puzzle custom-puzzle"
+      data-image="{{ image_url }}"
+      aria-label="Image puzzle"
+    ></div>
+  </div>
+
+  <audio id="puzzle-fanfare" src="{{ url_for('static', filename='sounds/fanfare.wav') }}" preload="auto"></audio>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/puzzle.js') }}"></script>
+{% endblock %}
+
