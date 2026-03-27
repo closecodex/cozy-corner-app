@@ -1,21 +1,72 @@
-# Cozy Corner App
+# 🌿 Cozy Corner App
 
-A beginner-friendly, modular Python and Flask web application featuring a collection of cozy, funny mini-features:
+**Cozy Corner** is a warm, playful Flask web app made as a learning project — a small digital corner for relaxing, smiling, and experimenting with code.
 
-- **Dog Personality Matcher**: A quirky quiz mapping you to a dog breed.
-- **Cat Facts & Images**: Relaxing quotes and (currently placeholder) cat pictures.
-- **Book Nook**: Search for your next read from an internal database.
-- **Puzzle Time**: A slide/swap puzzle using default or uploaded images.
-- **Daily Drawing Prompt**: Generates a random, cozy drawing prompt.
-- **Bonus Games**: Classic Snake and Tic-Tac-Toe.
+This project brings together several cozy mini-features inspired by everyday hobbies like reading, drawing, puzzles, and cute animals 🐾  
+It’s designed to be beginner-friendly, modular, and easy to explore.
 
-## Setup Instructions
+---
 
-1. Ensure you have Python 3 installed.
-2. In the project root, create a virtual environment and activate it:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+## ✨ Features
+
+🐶 **Dog Personality Matcher**  
+A fun quiz that matches your personality to a dog breed.
+![Cozy Corner Screenshot](https://github.com/user-attachments/assets/e43de58f-b601-407d-8a6b-f52d21af09bc)
+
+
+🐱 **Cat Corner**  
+Relaxing cat quotes and images for instant comfort.
+![Cozy Corner Screenshot](https://github.com/user-attachments/assets/837cdc9e-298a-4215-bc45-44eaae431189)
+
+📚 **Book Nook**  
+Browse and discover books from a local database — no fake titles, no external APIs.
+
+🧩 **Puzzle Time**  
+A click-swap puzzle:
+- upload your own image or use a default one  
+- choose puzzle size (12 / 20 / 30 pieces)  
+- enjoy a little celebration when you win 🎉
+![Cozy Corner Screenshot](https://github.com/user-attachments/assets/3f95e4c5-485c-46ee-9ec4-5d673a44cf1b)
+
+
+🎨 **Daily Drawing Prompt**  
+Get a cozy drawing idea for the day, with recent prompts stored safely.
+
+🎮 **Bonus Games**  
+Classic games with a soft, hand-drawn vibe:
+- Snake  
+- Tic-Tac-Toe (with fanfare on victory!)
+![Cozy Corner Screenshot](https://github.com/user-attachments/assets/62e6b8c1-dda7-41ed-a944-c6a817828c20)
+
+🔊 **Sound Effects**  
+- Tap sounds on navigation and buttons  
+- Fanfare sounds for puzzle and game wins
+
+---
+
+## 🛠 Tech Stack
+
+- **Python**
+- **Flask**
+- **Jinja2**
+- **SQLite**
+- **Vanilla JavaScript**
+- **Pytest** for automated testing
+
+No external APIs — everything runs locally and safely.
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Prerequisites
+Make sure you have **Python 3** installed.
+
+### 2️⃣ Create and activate a virtual environment
+```bash
+python -m venv venv
+source venv/bin/activate   # macOS / Linux
+venv\Scripts\activate      # Windows
    ```
 3. Install the required dependencies:
    ```bash
